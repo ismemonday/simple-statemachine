@@ -1,0 +1,33 @@
+@startuml
+interface StateMachine<S,E,C> {
+    S fireEvent(S sourceState, E event, C ctx);
+}
+
+class StateMachineImpl implements StateMachine {
+    private String machineId;
+    private final Map<String,Transition> transitionMap;
+    private boolean ready;
+}
+
+interface Transition<S,E,C> {
+  String getKey();
+}
+
+class TransitionImpl implements Transition {
+    private State<S, E, C> source;
+    private State<S, E, C> target;
+    private E event;
+    private Condition<C> condition;
+    private Action<S,E,C> action;
+}
+StateMachineImpl o-> TransitionImpl
+
+interface State<S,E,C>{
+    S get();
+}
+
+class StateImpl implements State{
+    protected final S state;
+}
+
+@enduml
