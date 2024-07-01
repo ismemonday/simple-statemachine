@@ -1,5 +1,6 @@
 *.class
 
+**/.gradle/*
 **/.idea/*
 *.iml
 .project
@@ -9,6 +10,7 @@
 **/target/*
 **/bin/*
 **/build/*
+.gradle/*
 
 # Package Files #
 *.jar
