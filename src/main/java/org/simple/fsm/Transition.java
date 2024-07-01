@@ -3,7 +3,6 @@ package org.simple.fsm;
 /**
  * @Author mao
  * @Date 2024/6/28
- * @Des
  */
 public interface Transition<S, E, C> {
     String getKey();
@@ -18,5 +17,11 @@ public interface Transition<S, E, C> {
 
     void setAction(Action<S, E, C> action);
 
+    /**
+     *  状态机中transit 的核心实现，先查看是否有当前transition, 如果有则执行transition
+     * @param context
+     * @param checkCondition
+     * @return 返回状态
+     */
      S transit(C context, boolean checkCondition);
 }

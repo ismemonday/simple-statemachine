@@ -1,5 +1,6 @@
 ## simple-statemachine: 极简高性能状态机框架
 
+<hr/>
 🚀 简介 🚀 simple-statemachine 是一款灵感来源于 cola-statemachine 与 spring-statemachine
 的革命性状态机实现，专为追求极致性能与简洁设计的开发者而生。它摒弃了复杂的配置与依赖，专注于提供一个轻量级、无状态且高度可扩展的状态机解决方案，旨在帮助您快速构建稳定、高效的应用系统。
 
@@ -15,20 +16,25 @@
 
 ## 快速开始
 
-- 添加依赖 对于Maven项目，只需在pom.xml中添加以下依赖：
+- 添加依赖 对于Maven项目，只需在pom.xml中添加以下依赖
 
 ```java
 <dependency>
-    <groupId>org.simple</groupId>
-    <artifactId>simple-statemachine</artifactId>
-    <version>1.0-SNAPSHOT</version>
+<groupId>org.simple</groupId>
+<artifactId>simple-statemachine</artifactId>
+<version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 
-- 创建并使用状态机
+- ✨ 创建并使用状态机 ✨
 
 ```java
- class StateMachineImplTest {
+/**
+ * @Author mao
+ * @Date 2024/6/28
+ * @Des
+ */
+class StateMachineImplTest {
     /**
      * 定义库位状态：空库位，满库位
      */
@@ -46,7 +52,7 @@
 
     @Test
     public void testCreateFsm() {
-        StateMachineBuilder<WarehouseState, WarehouseEvent, Object> fsmBuilder = StateMachineBuilderImpl.create();
+        StateMachineBuilder<WarehouseState, WarehouseEvent, Object> fsmBuilder = StateMachineBuilderFactory.create("库位状态机");
         fsmBuilder.transition()
                 .from(WarehouseState.EMPTY)
                 .to(WarehouseState.FULL)
@@ -63,7 +69,7 @@
                 .then((start, end, event, context) -> {
                     System.out.println(String.format("sourceState:%s，targetState：%s,event:%s,context:%s", start, end, event, context));
                 });
-        StateMachine<WarehouseState, WarehouseEvent, Object> stateMachine = fsmBuilder.build("库位状态机");
+        StateMachine<WarehouseState, WarehouseEvent, Object> stateMachine = fsmBuilder.build();
 
         WarehouseState S1 = stateMachine.fire(WarehouseState.EMPTY, WarehouseEvent.PUT_IN, "context");
         Assertions.assertTrue(S1 == WarehouseState.FULL);
@@ -74,12 +80,12 @@
 }
 ```
 
-## 文档与支持
+## 📚 文档与支持
 
-完整文档：访问 项目GitHub页面 查看详细的使用手册和API文档。 示例代码：包含丰富的示例项目，覆盖基础到高级用法，助您快速上手。 社区支持：加入我们的钉钉/Slack群组，与其他开发者交流心得，获取即时帮助。
+完整文档：访问 项目[GitHub]()页面 查看详细的使用手册和API文档。 示例代码：包含丰富的示例项目，覆盖基础到高级用法，助您快速上手。 社区支持：加入我们的钉钉/Slack群组，与其他开发者交流心得，获取即时帮助。
 
-## 贡献指南
+## 🔧 贡献指南
 
-我们热烈欢迎任何形式的贡献，包括但不限于bug报告、功能建议或代码提交。请遵循我们的贡献指南，共同推动 simple-statemachine 的发展。
+我们热烈欢迎任何形式的贡献，包括但不限于bug报告、功能建议或代码提交。请遵循我们的贡献指南，共同推动 [simple-statemachine]() 的发展。
 
-:star: 立即开始使用 simple-statemachine，让您的状态管理变得前所未有的简单与高效！
+👉 立即开始使用 [simple-statemachine]()，让您的状态管理变得前所未有的简单与高效！

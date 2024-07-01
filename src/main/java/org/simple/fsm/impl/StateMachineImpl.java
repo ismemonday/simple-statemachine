@@ -38,6 +38,10 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
         }
     }
 
+    public boolean getReady(){
+        return ready;
+    }
+
 
     @Override
     public void setName(String name) {
