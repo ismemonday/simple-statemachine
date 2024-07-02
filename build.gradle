@@ -1,9 +1,11 @@
 plugins {
     id 'java'
-    id 'maven-publish'
+    id 'maven'
+    id 'signing'
 }
 
 group 'org.simple'
+archivesBaseName = "simple-statemachine"
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -15,22 +17,86 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+javadoc {
+    options {
+        // 设置源文件编码
+        encoding 'utf-8'
+        // 设置输出文档的字符集
+        charSet 'utf-8'
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 test {
     useJUnitPlatform()
 }
 
-publishing{
-    publications{
-        'simple-statemachine'(MavenPublication) {
-            groupId "${group}"
-            artifactId "${name}"
-            version "${version}"
-            description 'the simple fsm lib for java'
-            from components.java
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment {
+                MavenDeployment deployment -> signing.signPom(deployment)
+            }
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(
+                        userName: '${ossrhUsername}',
+                        password: '${ossrhPassword}'
+                )
+            }
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(
+                        userName: '${ossrhUsername}',
+                        password: '${ossrhPassword}'
+                )
+            }
+            pom.project {
+                name "${archivesBaseName}";
+                packaging "jar"
+                description ""
+                url 'https://github.com/ismemonday/simple-statemachine'
+                scm {
+                    connection 'scm:svn:http://foo.googlecode.com/svn/trunk/'
+                    developerConnection 'scm:svn:https://foo.googlecode.com/svn/trunk/'
+                    url 'https://github.com/ismemonday/simple-statemachine.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id "simple-statemachine"
+                        name "maoguidong"
+                        email "13732923389@163.com"
+                    }
+                }
+            }
         }
     }
-
-    repositories {
-        mavenLocal()
-    }
 }
+

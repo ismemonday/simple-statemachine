@@ -1,5 +1,5 @@
 *.class
-
+gradle.properties
 **/.gradle/*
 **/.idea/*
 *.iml

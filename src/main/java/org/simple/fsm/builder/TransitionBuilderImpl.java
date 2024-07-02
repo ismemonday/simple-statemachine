@@ -8,9 +8,9 @@ import org.simple.fsm.impl.TransitionImpl;
 import java.util.function.Consumer;
 
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 public class TransitionBuilderImpl<S, E, C> implements TransitionBuilder<S, E, C> {
     private TransitionImpl<S, E, C> transition = new TransitionImpl<>();

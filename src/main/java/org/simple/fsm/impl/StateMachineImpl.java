@@ -8,9 +8,9 @@ import org.simple.fsm.utils.TransitionUtil;
 import java.util.Map;
 
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C> {
     private String name;

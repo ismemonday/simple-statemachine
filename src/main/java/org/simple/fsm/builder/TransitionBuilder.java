@@ -7,9 +7,9 @@ import org.simple.fsm.Transition;
 import java.util.function.Consumer;
 
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 public interface TransitionBuilder<S, E, C> {
     TransitionBuilder from(S sourceState);

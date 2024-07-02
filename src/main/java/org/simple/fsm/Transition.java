@@ -1,8 +1,8 @@
 package org.simple.fsm;
 
 /**
- * @Author mao
- * @Date 2024/6/28
+ * @author mao
+ * date 2024/6/28
  */
 public interface Transition<S, E, C> {
     String getKey();
@@ -19,8 +19,8 @@ public interface Transition<S, E, C> {
 
     /**
      *  状态机中transit 的核心实现，先查看是否有当前transition, 如果有则执行transition
-     * @param context
-     * @param checkCondition
+     * @param context 上下文
+     * @param checkCondition 是否检查条件
      * @return 返回状态
      */
      S transit(C context, boolean checkCondition);

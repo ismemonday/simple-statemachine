@@ -30,9 +30,9 @@
 
 ```java
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 class StateMachineImplTest {
     /**

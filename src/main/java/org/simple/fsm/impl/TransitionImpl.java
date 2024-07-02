@@ -7,9 +7,9 @@ import org.simple.fsm.exception.FSMException;
 import org.simple.fsm.utils.TransitionUtil;
 
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 public class TransitionImpl<S, E, C> implements Transition<S, E, C> {
     private S sourceState;

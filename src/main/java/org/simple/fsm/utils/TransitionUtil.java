@@ -1,9 +1,9 @@
 package org.simple.fsm.utils;
 
 /**
- * @Author mao
- * @Date 2024/7/1
- * @Des
+ * @author mao
+ * date 2024/7/1
+ * des
  */
 public class TransitionUtil {
     public static <S, E> String buildTransitionKey(S sourceState, E event) {

@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Author mao
- * @Date 2024/6/28
- * @Des
+ * @author mao
+ * date 2024/6/28
+ * des
  */
 public class StateMachineBuilderImpl<S, E, C> implements StateMachineBuilder<S, E, C> {
     private final String fsmName;
