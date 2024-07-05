@@ -18,11 +18,11 @@
 
 - 添加依赖 对于Maven项目，只需在pom.xml中添加以下依赖
 
-```java
+```text
 <dependency>
-<groupId>org.simple</groupId>
-<artifactId>simple-statemachine</artifactId>
-<version>1.0-SNAPSHOT</version>
+    <groupId>io.github.ismemonday</groupId>
+    <artifactId>simple-statemachine</artifactId>
+    <version>1.0.2</version>
 </dependency>
 ```
 

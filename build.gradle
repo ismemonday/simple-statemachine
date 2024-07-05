@@ -1,12 +1,14 @@
+import java.security.MessageDigest
+
 plugins {
     id 'java'
     id 'maven'
     id 'signing'
 }
 
-group 'org.simple'
+group 'io.github.ismemonday'
 archivesBaseName = "simple-statemachine"
-version '1.0-SNAPSHOT'
+version '1.0.2'
 
 repositories {
     mavenCentral()
@@ -40,14 +42,6 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
-signing {
-    sign configurations.archives
-}
-
 test {
     useJUnitPlatform()
 }
@@ -73,7 +67,7 @@ uploadArchives {
             pom.project {
                 name "${archivesBaseName}";
                 packaging "jar"
-                description ""
+                description "the simple fsm"
                 url 'https://github.com/ismemonday/simple-statemachine'
                 scm {
                     connection 'scm:svn:http://foo.googlecode.com/svn/trunk/'
@@ -90,13 +84,71 @@ uploadArchives {
 
                 developers {
                     developer {
-                        id "simple-statemachine"
+                        id "${archivesBaseName}"
                         name "maoguidong"
                         email "13732923389@163.com"
                     }
                 }
-            }
+            }.writeTo("$buildDir/libs/${archivesBaseName}-${version}.pom")
         }
     }
 }
 
+task createPom(type: Tar) {
+    pom {
+        project {
+            name "${archivesBaseName}";
+            packaging "jar"
+            description "the simple fsm"
+            url 'https://github.com/ismemonday/simple-statemachine'
+            scm {
+                connection 'scm:svn:http://foo.googlecode.com/svn/trunk/'
+                developerConnection 'scm:svn:https://foo.googlecode.com/svn/trunk/'
+                url 'https://github.com/ismemonday/simple-statemachine.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+
+            developers {
+                developer {
+                    id "${archivesBaseName}"
+                    name "maoguidong"
+                    email "13732923389@163.com"
+                }
+            }
+        }
+    }.writeTo("$buildDir/libs/${archivesBaseName}-${version}.pom")
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, new File("$buildDir/libs/${archivesBaseName}-${version}.pom")
+}
+
+signing {
+    sign configurations.archives
+}
+
+
+task generateChecksums(type: Exec) {
+    //dependsOn(signArchives)
+    def libsDir = file("${project.buildDir}/libs")
+    libsDir.listFiles().each { eachFile ->
+        if (eachFile.isFile() && (eachFile.name.endsWith('.jar') || eachFile.name.endsWith('.pom'))) {
+            file(eachFile.absolutePath + ".md5").write(calculateMD(eachFile, "MD5"));
+            file(eachFile.absolutePath + ".sha1").write(calculateMD(eachFile, "SHA1"));
+        }
+    }
+}
+
+
+// 辅助方法：计算文件的MD5,或者SHA1
+def calculateMD(file, algorithm) {
+    MessageDigest md = MessageDigest.getInstance(algorithm)
+    byte[] digest = md.digest(file.getBytes())
+    return digest.encodeHex().toString()
+}
