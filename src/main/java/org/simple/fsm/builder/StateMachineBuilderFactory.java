@@ -1,6 +1,6 @@
 package org.simple.fsm.builder;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 /**
  * @author mao
@@ -20,7 +20,23 @@ public class StateMachineBuilderFactory<S, E, C> {
      */
     public static <S,E,C>StateMachineBuilder create(String name) {
         if (fsmMap.get(name) == null) {
-            return new StateMachineBuilderImpl<S,E,C>(name);
+            return new StateMachineBuilderImpl<S,E,C>(name, Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()*2,(runnable)->new Thread(runnable,"Thread-FSM-")));
+        }
+        return fsmMap.get(name);
+    }
+
+    /**
+     * 自定义线程池
+     * @param name
+     * @param asyncActionPool
+     * @param <S>
+     * @param <E>
+     * @param <C>
+     * @return
+     */
+    public static <S,E,C>StateMachineBuilder create(String name,ScheduledExecutorService asyncActionPool) {
+        if (fsmMap.get(name) == null) {
+            return new StateMachineBuilderImpl<S,E,C>(name,asyncActionPool);
         }
         return fsmMap.get(name);
     }

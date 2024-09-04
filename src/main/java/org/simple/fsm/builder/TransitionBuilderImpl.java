@@ -4,7 +4,6 @@ import org.simple.fsm.Action;
 import org.simple.fsm.Condition;
 import org.simple.fsm.Transition;
 import org.simple.fsm.impl.TransitionImpl;
-
 import java.util.function.Consumer;
 
 /**
@@ -37,13 +36,18 @@ public class TransitionBuilderImpl<S, E, C> implements TransitionBuilder<S, E, C
     @Override
     public TransitionBuilder when(Condition<C> condition) {
         transition.setCondition(condition);
+        whenComplete.accept(transition);
         return this;
     }
 
     @Override
     public void then(Action<S, E, C> action) {
         transition.setAction(action);
-        whenComplete.accept(transition);
+    }
+
+    @Override
+    public void asyncThen(Action<S, E, C> action) {
+        transition.setAsyncAction(action);
     }
 
     @Override

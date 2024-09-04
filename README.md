@@ -22,7 +22,7 @@
 <dependency>
     <groupId>io.github.ismemonday</groupId>
     <artifactId>simple-statemachine</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 

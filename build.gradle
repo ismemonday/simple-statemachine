@@ -8,7 +8,7 @@ plugins {
 
 group 'io.github.ismemonday'
 archivesBaseName = "simple-statemachine"
-version '1.0.2'
+version '1.0.3'
 
 repositories {
     mavenCentral()
@@ -50,7 +50,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment {
-                MavenDeployment deployment -> signing.signPom(deployment)
+                 deployment -> signing.signPom(deployment)
             }
             repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(

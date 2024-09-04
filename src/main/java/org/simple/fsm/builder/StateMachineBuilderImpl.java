@@ -7,6 +7,7 @@ import org.simple.fsm.impl.StateMachineImpl;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * @author mao
@@ -17,9 +18,11 @@ public class StateMachineBuilderImpl<S, E, C> implements StateMachineBuilder<S, 
     private final String fsmName;
     private Map<String, Transition<S, E, C>> transitionMap = new ConcurrentHashMap<>();
     private StateMachine stateMachine = new StateMachineImpl(transitionMap);
+    private ScheduledExecutorService asyncActionPool;
 
-    public StateMachineBuilderImpl(String fsmName) {
+    public StateMachineBuilderImpl(String fsmName, ScheduledExecutorService asyncActionPool) {
         this.fsmName = fsmName;
+        this.asyncActionPool = asyncActionPool;
     }
 
 
@@ -38,6 +41,7 @@ public class StateMachineBuilderImpl<S, E, C> implements StateMachineBuilder<S, 
         TransitionBuilderImpl<S, E, C> transitionBuilder = new TransitionBuilderImpl<>();
         transitionBuilder.whenComplete((transition) -> {
             transitionMap.put(transition.getKey(), transition);
+            transition.setAsyncActionPool(asyncActionPool);
         });
         return transitionBuilder;
     }

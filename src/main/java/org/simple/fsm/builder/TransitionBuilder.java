@@ -22,5 +22,7 @@ public interface TransitionBuilder<S, E, C> {
 
     void then(Action<S, E, C> action);
 
+    void asyncThen(Action<S, E, C> action);
+
     void whenComplete(Consumer<Transition<S, E, C>> consumer);
 }

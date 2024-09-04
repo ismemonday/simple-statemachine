@@ -1,5 +1,7 @@
 package org.simple.fsm;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 /**
  * @author mao
  * date 2024/6/28
@@ -24,4 +26,9 @@ public interface Transition<S, E, C> {
      * @return 返回状态
      */
      S transit(C context, boolean checkCondition);
+
+    void setAsyncAction(Action<S, E, C> action);
+
+    void setAsyncActionPool(ScheduledExecutorService asyncActionPool);
+
 }
