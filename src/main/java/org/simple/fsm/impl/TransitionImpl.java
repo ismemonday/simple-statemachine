@@ -4,9 +4,10 @@ import org.simple.fsm.Action;
 import org.simple.fsm.Condition;
 import org.simple.fsm.Transition;
 import org.simple.fsm.exception.ConditionException;
-import org.simple.fsm.exception.FSMException;
 import org.simple.fsm.utils.TransitionUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**

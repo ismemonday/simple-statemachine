@@ -9,6 +9,7 @@ import java.util.concurrent.*;
  */
 public class StateMachineBuilderFactory<S, E, C> {
     private static Map<String, StateMachineBuilder> fsmMap = new ConcurrentHashMap<String, StateMachineBuilder>();
+    private static ScheduledExecutorService asyncActionPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()*2,(runnable)->new Thread(runnable,"Thread-FSM-"));
 
     /**
      * 创建一个状态机构建类
@@ -20,7 +21,7 @@ public class StateMachineBuilderFactory<S, E, C> {
      */
     public static <S,E,C>StateMachineBuilder create(String name) {
         if (fsmMap.get(name) == null) {
-            return new StateMachineBuilderImpl<S,E,C>(name, Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()*2,(runnable)->new Thread(runnable,"Thread-FSM-")));
+            return new StateMachineBuilderImpl<S,E,C>(name,asyncActionPool);
         }
         return fsmMap.get(name);
     }

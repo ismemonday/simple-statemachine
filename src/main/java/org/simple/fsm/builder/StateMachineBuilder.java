@@ -19,5 +19,5 @@ public interface StateMachineBuilder<S, E, C> {
      * 初始化转换器的构建类
      * @return 转换构建器
      */
-    TransitionBuilder transition();
+    TransitionBuilder<S,E,C> transition();
 }
