@@ -2,7 +2,6 @@ package org.simple.fsm.builder;
 
 import org.simple.fsm.Action;
 import org.simple.fsm.Condition;
-
 /**
  * @author mao
  * date 2024/6/28

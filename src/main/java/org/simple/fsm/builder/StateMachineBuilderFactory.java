@@ -1,4 +1,7 @@
 package org.simple.fsm.builder;
+
+import org.simple.fsm.factory.NameThreadFactory;
+
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -9,7 +12,7 @@ import java.util.concurrent.*;
  */
 public class StateMachineBuilderFactory<S, E, C> {
     private static Map<String, StateMachineBuilder> fsmMap = new ConcurrentHashMap<String, StateMachineBuilder>();
-    private static ScheduledExecutorService asyncActionPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()*2,(runnable)->new Thread(runnable,"Thread-FSM-"));
+    private static ScheduledExecutorService asyncActionPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()*2, new NameThreadFactory("TD-FSM-"));
 
     /**
      * 创建一个状态机构建类

@@ -27,14 +27,14 @@ class StateMachineTest {
 
     @Test
     public void testCreateFsm() {
-        StateMachineBuilder<StateMachineImplTest.WarehouseState, StateMachineImplTest.WarehouseEvent, Object> fsmBuilder = StateMachineBuilderFactory.create("库位状态机");
+        StateMachineBuilder<StateMachineImplTest.WarehouseState, StateMachineImplTest.WarehouseEvent, Integer> fsmBuilder = StateMachineBuilderFactory.create("库位状态机");
         fsmBuilder.transition()
                 .from(StateMachineImplTest.WarehouseState.EMPTY)
                 .to(StateMachineImplTest.WarehouseState.FULL)
                 .on(StateMachineImplTest.WarehouseEvent.PUT_IN)
                 .when(c -> c != null)
-                .then((start, end, event, context) -> {
-                    doSome(start,end,event,context);
+                .asyncThen((start, end, event, context)->{
+                    System.out.println(Thread.currentThread().getName()+"===========");
                 });
     }
 
